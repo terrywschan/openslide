@@ -510,10 +510,13 @@ static bool read_nonhier_record(struct _openslide_file *f,
     return false;
   }
 
-  // read pagesize == 1
-  if (read_le_int32_from_file(f) != 1) {
+  // read pagesize
+  // read pagesize should not be zero
+  // is normally just one, but some 3dhistech scans seem to have 2 sometimes
+  int32_t pagesize = read_le_int32_from_file(f);
+  if (pagesize < 1 || pagesize > SHRT_MAX) {
     g_set_error(err, OPENSLIDE_ERROR, OPENSLIDE_ERROR_FAILED,
-                "Expected 1 value");
+                "Expected at least 1 value");
     return false;
   }
 
