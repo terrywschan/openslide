@@ -30,7 +30,7 @@
 
 static const char *version_format = "%s " SUFFIXED_VERSION ", "
 "using OpenSlide %s\n"
-"Copyright (C) 2007-2022 Carnegie Mellon University and others\n"
+"Copyright (C) 2007-2023 Carnegie Mellon University and others\n"
 "\n"
 "OpenSlide is free software: you can redistribute it and/or modify it under\n"
 "the terms of the GNU Lesser General Public License, version 2.1.\n"
@@ -63,7 +63,7 @@ static void free_argv(void) {
 
 void common_fix_argv(int *argc, char ***argv) {
   if (fixed_argv == NULL) {
-#ifdef G_OS_WIN32
+#ifdef _WIN32
     fixed_argv = g_win32_get_command_line();
 #else
     fixed_argv = g_strdupv(*argv);
